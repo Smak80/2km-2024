@@ -6,10 +6,21 @@ use common\a_content;
 use common\page;
 
 class second extends a_content{
+
+    private string $value;
+    public function __construct(){
+        if (isset($_POST['data']))
+            $this->value = htmlspecialchars($_POST['data']);
+    }
+
     public function create_content()
     {
+        if (isset($this->value)) print ($this->value);
         ?>
-        ЭТО СТРАНИЦА №2
+        <form method="post" action="<?php print($_SERVER['SCRIPT_NAME']);?>">
+            <input type="text" name="data" />
+            <input type="submit" value="Отправить"/>
+        </form>
         <?php
     }
 }

@@ -34,10 +34,8 @@ class page
             <link rel="stylesheet" type="text/css" href="/css/bootstrap-reboot.min.css">
             <link rel="stylesheet" type="text/css" href="/css/bootstrap-utilities.min.css">
             <link rel="stylesheet" type="text/css" href="/css/bootstrap.rtl.min.css">
-            <script type="application/javascript" href="/js/bootstrap.min.js"></script>
-            <script type="application/javascript" href="/js/bootstrap.bundle.min.js"></script>
-            <script type="application/javascript" href="/js/bootstrap.esm.min.js"></script>
-            <script type="application/javascript" href="/js/jquery-3.7.1.min.js"></script>
+            <script type="application/javascript" src="/js/bootstrap.bundle.min.js"></script>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
         </head>
         <body>
         <?php
@@ -49,23 +47,34 @@ class page
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <span class="navbar-brand mb-0 h1">Магистры-2024 (2 курс)</span>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
+                <div class="d-flex">
+                    <div class="m-auto navbar-toggler border-0" data-bs-toggle="collapse">МЕНЮ:</div>
+                    <button class="navbar-toggler m-button border-info" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                            aria-label="Меню">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse" id="navbarCollapse">
+                    <ul class="navbar-nav">
                         <?php
                         $pages = json_loader::load("data/pages.json");
                         $this_page = trim($_SERVER['SCRIPT_NAME'], "\r\n\t /");
                         foreach ($pages as $page) {
+                        ?>
+                            <li class="nav-item">
+                            <?php
                             if ($this_page === $page['url']) {
                                 print ('<span class="nav-link fw-semibold" aria-current="page">' . $page['title'] . '</span>');
                             } else {
                                 print ('<a class="nav-link" href="' . $page['url'] . '">' . $page['title'] . '</a>');
                             }
+                            ?>
+                            </li>
+                        <?php
                         }
                         ?>
-                    </div>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -75,7 +84,7 @@ class page
     private function show_header(): void
     {
         ?>
-        <div class="container-fluid text-center bg-primary text-white fw-bold p-2">
+        <div class="container-fluid text-center bg-primary text-white h2 p-2">
         <?php
         $pages = json_loader::load("data/pages.json");
         $this_page = trim($_SERVER['SCRIPT_NAME'], "\r\n\t /");
@@ -102,9 +111,12 @@ class page
     private function show_footer(): void
     {
         ?>
-        <div>
-            ПОДВАЛ
+        <div class="container-fluid alert alert-secondary">
+            <div class="text-end w-auto fs-6 bg-primary align-content-end">
+                © Маклецов С. В., 2024
+            </div>
         </div>
+        <p class="text-end">End aligned text on all viewport sizes.</p>
         <?php
     }
 
