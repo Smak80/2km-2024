@@ -7,7 +7,6 @@ require_once 'a_content.php';
 
 class page
 {
-
     private a_content $content;
 
     public function __construct(a_content $content){
@@ -38,6 +37,7 @@ class page
             <script type="application/javascript" href="/js/bootstrap.min.js"></script>
             <script type="application/javascript" href="/js/bootstrap.bundle.min.js"></script>
             <script type="application/javascript" href="/js/bootstrap.esm.min.js"></script>
+            <script type="application/javascript" href="/js/jquery-3.7.1.min.js"></script>
         </head>
         <body>
         <?php
@@ -59,16 +59,12 @@ class page
                         $this_page = trim($_SERVER['SCRIPT_NAME'], "\r\n\t /");
                         foreach ($pages as $page) {
                             if ($this_page === $page['url']) {
-                                print ('<span class="nav-link fw-semibold">' . $page['title'] . '</span>');
+                                print ('<span class="nav-link fw-semibold" aria-current="page">' . $page['title'] . '</span>');
                             } else {
                                 print ('<a class="nav-link" href="' . $page['url'] . '">' . $page['title'] . '</a>');
                             }
                         }
                         ?>
-                        <!--<a class="nav-link active" aria-current="page" href="#">Home</a>
-                        <a class="nav-link" href="#">Features</a>
-                        <a class="nav-link" href="#">Pricing</a>
-                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>-->
                     </div>
                 </div>
             </div>
