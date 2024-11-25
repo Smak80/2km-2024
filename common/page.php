@@ -46,9 +46,33 @@ class page
     private function show_menu(): void
     {
         ?>
-        <div>
-            МЕНЮ
-        </div>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1">Магистры-2024 (2 курс)</span>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <?php
+                        $pages = json_loader::load("data/pages.json");
+                        $this_page = trim($_SERVER['SCRIPT_NAME'], "\r\n\t /");
+                        foreach ($pages as $page) {
+                            if ($this_page === $page['url']) {
+                                print ('<span class="nav-link fw-semibold">' . $page['title'] . '</span>');
+                            } else {
+                                print ('<a class="nav-link" href="' . $page['url'] . '">' . $page['title'] . '</a>');
+                            }
+                        }
+                        ?>
+                        <!--<a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link" href="#">Features</a>
+                        <a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link disabled" aria-disabled="true">Disabled</a>-->
+                    </div>
+                </div>
+            </div>
+        </nav>
         <?php
     }
 
