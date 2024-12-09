@@ -6,5 +6,13 @@
   {
     "url": "second.php",
     "title": "Вторая страница"
+  },
+  {
+    "url": "rebus_page.php",
+    "title": "Решение ребусов"
+  },
+  {
+    "url": "paginating_page.php",
+    "title": "Постраничное отображение"
   }
 ]

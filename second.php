@@ -9,11 +9,12 @@ class second extends a_content{
 
     private string $value;
     public function __construct(){
+        parent::__construct();
         if (isset($_POST['data']))
             $this->value = htmlspecialchars($_POST['data']);
     }
 
-    public function create_content()
+    public function create_content(): void
     {
         if (isset($this->value)) print ($this->value);
         ?>

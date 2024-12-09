@@ -33,7 +33,6 @@ class page
             <link rel="stylesheet" type="text/css" href="/css/bootstrap-grid.min.css">
             <link rel="stylesheet" type="text/css" href="/css/bootstrap-reboot.min.css">
             <link rel="stylesheet" type="text/css" href="/css/bootstrap-utilities.min.css">
-            <link rel="stylesheet" type="text/css" href="/css/bootstrap.rtl.min.css">
             <script type="application/javascript" src="/js/bootstrap.bundle.min.js"></script>
             <meta name="viewport" content="width=device-width, initial-scale=1">
         </head>
@@ -112,11 +111,10 @@ class page
     {
         ?>
         <div class="container-fluid alert alert-secondary">
-            <div class="text-end w-auto fs-6 bg-primary align-content-end">
+            <div class="text-end w-auto fs-6">
                 © Маклецов С. В., 2024
             </div>
         </div>
-        <p class="text-end">End aligned text on all viewport sizes.</p>
         <?php
     }
 
