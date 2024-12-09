@@ -20,7 +20,7 @@ class paginating_page extends \common\a_content
     public function create_content(): void
     {
         if (isset($this->error_msg)){
-            $this->show_message($this->error_msg);
+            $this->show_error($this->error_msg);
         }
         ?>
             <div class="container">
@@ -46,7 +46,7 @@ class paginating_page extends \common\a_content
      */
     private function upload_file(): void
     {
-        if (self::is_form_sent()){
+        if ($this->is_form_sent()){
             $upload_dir = 'uploads/';
             if (isset($_FILES['file'])) {
                 if ($_FILES['file']['size'] > $this->max_file_size) {

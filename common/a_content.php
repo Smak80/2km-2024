@@ -56,7 +56,7 @@ abstract class a_content
         return isset($_REQUEST['form_sent']);
     }
 
-    protected function show_message(string $message, style $type = style::error): void{
+    private function show_message(string $message, style $type = style::error): void{
         $alert_type = 'alert-danger';
         switch ($type) {
             case style::warning:
@@ -64,6 +64,9 @@ abstract class a_content
                 break;
             case style::info:
                 $alert_type = 'alert-info';
+                break;
+            case style::success:
+                $alert_type = 'alert-success';
                 break;
             default:
         }
@@ -76,5 +79,33 @@ abstract class a_content
         <?php
     }
 
+    protected function show_error(string $message): void
+    {
+        $this->show_message($message);
+    }
+
+    protected function show_success(string $message): void
+    {
+        $this->show_message($message, style::success);
+    }
+
+    protected function show_info(string $message): void
+    {
+        $this->show_message($message, style::info);
+    }
+
+    protected function show_warning(string $message): void
+    {
+        $this->show_message($message, style::warning);
+    }
+
     public abstract function create_content();
+}
+
+enum style
+{
+    case error;
+    case warning;
+    case info;
+    case success;
 }
