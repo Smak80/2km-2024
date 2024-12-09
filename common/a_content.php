@@ -1,8 +1,6 @@
 <?php
 namespace common;
 
-require_once "common/style_enum.php";
-
 abstract class a_content
 {
     private array $post = array();

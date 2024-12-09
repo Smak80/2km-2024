@@ -18,7 +18,7 @@ class second extends a_content{
     {
         if (isset($this->value)) print ($this->value);
         ?>
-        <form method="post" action="<?php print($_SERVER['SCRIPT_NAME']);?>">
+        <form method="get" action="<?php print($_SERVER['SCRIPT_NAME']);?>">
             <input type="text" name="data" />
             <input type="submit" value="Отправить"/>
         </form>
