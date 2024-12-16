@@ -11,6 +11,9 @@ class auth extends \common\a_content
     public function __construct(){
         parent::__construct();
         $this->auth = $this->auth();
+        if($this->auth === true){
+            $this->set_session_data('login', $this->get_post_data('login'));
+        }
     }
 
     private function auth(): bool|null{

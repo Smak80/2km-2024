@@ -10,6 +10,7 @@ abstract class a_content
 
     public function __construct()
     {
+        session_start();
         if (isset($_GET)){
             foreach ($_GET as $key => $value){
                 $this->get[$key] = htmlspecialchars($value);
@@ -45,9 +46,15 @@ abstract class a_content
         return '';
     }
 
-    protected function get_session_data($key): string{
+    public function get_session_data($key): string{
         if (isset($this->session[$key])) return $this->session[$key];
         return '';
+    }
+
+    protected function set_session_data($key, $value): void
+    {
+        $_SESSION[$key] = $value;
+        $this->session[$key] = htmlspecialchars($value);
     }
 
     protected function is_form_sent(): bool{

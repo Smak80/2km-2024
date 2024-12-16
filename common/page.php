@@ -45,7 +45,7 @@ class page
         ?>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <span class="navbar-brand mb-0 h1">Магистры-2024 (2 курс)</span>
+                <span class="navbar-brand mb-0 h1"><?php if ($this->content->get_session_data('login') !== '') print "Приветствуем, ".$this->content->get_session_data('login')."! Сайт "; ?> Магистры-2024 (2 курс)</span>
                 <div class="d-flex">
                     <div class="m-auto navbar-toggler border-0" data-bs-toggle="collapse">МЕНЮ:</div>
                     <button class="navbar-toggler m-button border-info" type="button" data-bs-toggle="collapse"
