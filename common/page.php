@@ -60,6 +60,7 @@ class page
                         $pages = json_loader::load("data/pages.json");
                         $this_page = trim($_SERVER['SCRIPT_NAME'], "\r\n\t /");
                         foreach ($pages as $page) {
+                            if (isset($page['show']) && $page['show'] === 0) continue;
                         ?>
                             <li class="nav-item">
                             <?php

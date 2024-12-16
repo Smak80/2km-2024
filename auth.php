@@ -4,10 +4,27 @@ require_once 'common/page.php';
 use common\page;
 class auth extends \common\a_content
 {
+    private string $correct_login = "user";
+    private string $correct_password = "password";
+    private ?bool $auth;
+
+    public function __construct(){
+        parent::__construct();
+        $this->auth = $this->auth();
+    }
+
+    private function auth(): bool|null{
+        $login = $this->get_post_data('login');
+        $password = $this->get_post_data('password');
+        if ($login !== '')
+            return $login === $this->correct_login && $password === $this->correct_password;
+        return null;
+    }
+
     public function create_content(): void
     {
         ?>
-        <div class="container border border-primary border-1 w-50">
+        <div class="container border border-primary border-1 w-50 mb-3">
             <form method="post" action="<?php print $_SERVER['SCRIPT_NAME']?>">
 
                 <div class="row w-100 m-auto">
@@ -37,6 +54,13 @@ class auth extends \common\a_content
             </form>
         </div>
         <?php
+        if ($this->auth !== null) {
+            if ($this->auth === true) {
+                $this->show_success("Пользователь успешно авторизован!");
+            } else {
+                $this->show_error("Неверный логин или пароль!");
+            }
+        }
     }
 }
 
