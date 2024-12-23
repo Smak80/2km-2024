@@ -3,6 +3,8 @@ namespace common;
 
 abstract class a_content
 {
+    private string $auth_page_uri = "auth.php";
+    private string $reg_page_uri = "reg.php";
     private array $post = array();
     private array $get = array();
     private array $request = array();
@@ -68,6 +70,16 @@ abstract class a_content
 
     public function is_form_sent(): bool{
         return isset($_REQUEST['form_sent']);
+    }
+
+    public function get_auth_page(): string
+    {
+        return $this->auth_page_uri;
+    }
+
+    public function get_reg_page(): string
+    {
+        return $this->reg_page_uri;
     }
 
     private function show_message(string $message, style $type = style::error): void{

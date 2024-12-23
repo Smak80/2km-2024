@@ -20,7 +20,7 @@ class page
             $this->end_page();
         } else {
             $content->set_session_data('from', $_SERVER['REQUEST_URI']);
-            header("Location: auth.php");
+            header('Location: '.$this->content->get_auth_page());
         }
     }
 

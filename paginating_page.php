@@ -77,6 +77,9 @@ class paginating_page extends \common\a_content
         return '';
     }
 
+    /**
+     * @throws Exception
+     */
     private function read_file(string $filename, int $page, int $count): array{
         $res = array();
         $root = $_SERVER['CONTEXT_DOCUMENT_ROOT'];

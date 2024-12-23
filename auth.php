@@ -58,8 +58,13 @@ class auth extends \common\a_content
                         <input type="submit" class="btn-primary" value="Войти"/>
                     </div>
                 </div>
-
             </form>
+        </div>
+
+        <div class="row">
+            <div class="col text-center w-100">
+                <a href='<?php print $this->get_reg_page(); ?>'>Регистрация</a>
+            </div>
         </div>
         <?php
         if ($this->auth !== null) {
