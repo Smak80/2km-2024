@@ -10,9 +10,14 @@ class auth extends \common\a_content
 
     public function __construct(){
         parent::__construct();
+        $this->is_opened = true;
+        if ($this->get_get_data('logout')!==''){
+            $this->set_session_data('login', '');
+        }
         $this->auth = $this->auth();
         if($this->auth === true){
             $this->set_session_data('login', $this->get_post_data('login'));
+            header('Location: '.$this->get_session_data('from'));
         }
     }
 

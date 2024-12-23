@@ -11,12 +11,17 @@ class page
 
     public function __construct(a_content $content){
         $this->content = $content;
-        $this->start_page();
-        $this->show_menu();
-        $this->show_header();
-        $this->show_content();
-        $this->show_footer();
-        $this->end_page();
+        if ($content->is_opened() || $content->is_authorized()) {
+            $this->start_page();
+            $this->show_menu();
+            $this->show_header();
+            $this->show_content();
+            $this->show_footer();
+            $this->end_page();
+        } else {
+            $content->set_session_data('from', $_SERVER['REQUEST_URI']);
+            header("Location: auth.php");
+        }
     }
 
     private function start_page(): void
@@ -61,6 +66,7 @@ class page
                         $this_page = trim($_SERVER['SCRIPT_NAME'], "\r\n\t /");
                         foreach ($pages as $page) {
                             if (isset($page['show']) && $page['show'] === 0) continue;
+                            if (isset($page['show']) && $page['show'] === 'for_auth' && $this->content->get_session_data('login') === '') continue;
                         ?>
                             <li class="nav-item">
                             <?php

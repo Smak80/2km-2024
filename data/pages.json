@@ -19,5 +19,10 @@
     "url": "auth.php",
     "title": "Авторизация пользователя",
     "show": 0
+  },
+  {
+    "url": "auth.php?logout=1",
+    "title": "Выход",
+    "show": "for_auth"
   }
 ]

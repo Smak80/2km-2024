@@ -6,6 +6,11 @@ use common\a_content;
 use common\page;
 
 class index extends a_content{
+
+    function __construct() {
+        parent::__construct();
+        $this->is_opened = true;
+    }
     public function create_content()
     {
         ?>

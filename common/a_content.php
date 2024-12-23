@@ -7,6 +7,7 @@ abstract class a_content
     private array $get = array();
     private array $request = array();
     private array $session = array();
+    protected bool $is_opened = false;
 
     public function __construct()
     {
@@ -33,15 +34,23 @@ abstract class a_content
         }
     }
 
-    protected function get_get_data($key): string{
+    public function is_opened(): bool{
+        return $this->is_opened;
+    }
+
+    public function is_authorized(): bool {
+        return $this->get_session_data('login') !== '';
+    }
+
+    public function get_get_data($key): string{
         if (isset($this->get[$key])) return $this->get[$key];
         return '';
     }
-    protected function get_post_data($key): string{
+    public function get_post_data($key): string{
         if (isset($this->post[$key])) return $this->post[$key];
         return '';
     }
-    protected function get_request_data($key): string{
+    public function get_request_data($key): string{
         if (isset($this->request[$key])) return $this->request[$key];
         return '';
     }
@@ -51,13 +60,13 @@ abstract class a_content
         return '';
     }
 
-    protected function set_session_data($key, $value): void
+    public function set_session_data($key, $value): void
     {
         $_SESSION[$key] = $value;
         $this->session[$key] = htmlspecialchars($value);
     }
 
-    protected function is_form_sent(): bool{
+    public function is_form_sent(): bool{
         return isset($_REQUEST['form_sent']);
     }
 
