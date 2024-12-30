@@ -52,4 +52,22 @@ class db_helper
         }
         return $res != false;
     }
+
+    public function checkUser(string $login, string $password): bool
+    {
+        $res = false;
+        try{
+            $this->conn->beginTransaction();
+            $stmt = $this->conn->prepare('SELECT * FROM users WHERE username = :login');
+            $stmt->execute([':login' => $login]);
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($results as $row) {
+                $res = password_verify($password, $row['password']);
+            }
+            $this->conn->commit();
+        } catch (PDOException $e) {
+            $this->conn->rollBack();
+        }
+        return $res;
+    }
 }

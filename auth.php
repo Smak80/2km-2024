@@ -1,11 +1,12 @@
 <?php
 require_once 'common/a_content.php';
 require_once 'common/page.php';
+require_once 'common/db_helper.php';
 use common\page;
+use common\db_helper;
+
 class auth extends \common\a_content
 {
-    private string $correct_login = "user";
-    private string $correct_password = "password";
     private ?bool $auth;
 
     public function __construct(){
@@ -24,8 +25,8 @@ class auth extends \common\a_content
     private function auth(): bool|null{
         $login = $this->get_post_data('login');
         $password = $this->get_post_data('password');
-        if ($login !== '')
-            return $login === $this->correct_login && $password === $this->correct_password;
+        if ($this->is_form_sent())
+            return db_helper::getInstance()->checkUser($login, $password);
         return null;
     }
 
@@ -34,7 +35,7 @@ class auth extends \common\a_content
         ?>
         <div class="container border border-primary border-1 w-50 mb-3">
             <form method="post" action="<?php print $_SERVER['SCRIPT_NAME']?>">
-
+                <input type="hidden" name="form_sent" value="1">
                 <div class="row w-100 m-auto">
                     <div class="col-3 m-2">
                         <label for="login" class="form-control border-0">Введите логин:</label>
