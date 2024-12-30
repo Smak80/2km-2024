@@ -2,6 +2,7 @@
 
 namespace common;
 use PDO;
+use PDOException;
 
 class db_helper
 {
@@ -36,11 +37,19 @@ class db_helper
                                  string $realname, // имя пользователя
                                  string $email // электронная почта пользователя
     ): bool {
-        $stmt = $this->conn->prepare(
-            "INSERT INTO users (username, password, realname, email) VALUES (:username, :password, :realname, :email)"
-        );
-        $pwd_hash = password_hash($password, PASSWORD_DEFAULT);
-        $res = $stmt->execute([':username' => $username, ':password' => $pwd_hash, ':realname' => $realname, ':email' => $email]);
+        $res = false;
+        try {
+            $this->conn->beginTransaction();
+            $stmt = $this->conn->prepare(
+                "INSERT INTO users (username, password, realname, email) VALUES (:username, :password, :realname, :email)"
+            );
+            $pwd_hash = password_hash($password, PASSWORD_DEFAULT);
+            $res = $stmt->execute([':username' => $username, ':password' => $pwd_hash, ':realname' => $realname, ':email' => $email]);
+            $this->conn->commit();
+        } catch (PDOException $e) {
+            $res = false;
+            $this->conn->rollBack();
+        }
         return $res != false;
     }
 }

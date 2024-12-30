@@ -128,9 +128,9 @@ class reg extends a_content
         <?php
         if ($this->reg !== null) {
             if ($this->reg === true) {
-                $this->show_success("Пользователь успешно авторизован!");
+                $this->show_success("Пользователь успешно зарегистрирован!");
             } else {
-                $this->show_error("Неверный логин или пароль!");
+                $this->show_error("Ошибка регистрации пользователя!");
             }
         }
     }
