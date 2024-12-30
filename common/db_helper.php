@@ -39,7 +39,7 @@ class db_helper
         $stmt = $this->conn->prepare(
             "INSERT INTO users (username, password, realname, email) VALUES (:username, :password, :realname, :email)"
         );
-        $res = $stmt->execute(['username' => $username, 'password' => $password, 'realname' => $realname, 'email' => $email]);
+        $res = $stmt->execute([':username' => $username, ':password' => $password, ':realname' => $realname, ':email' => $email]);
         return $res != false;
     }
 }
