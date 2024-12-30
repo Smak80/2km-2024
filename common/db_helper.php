@@ -37,7 +37,7 @@ class db_helper
                                  string $email // электронная почта пользователя
     ): bool {
         $stmt = $this->conn->prepare(
-            "INSERT INTO users (username, password, realname, email) VALUES ($1, $2, $3, $4)"
+            "INSERT INTO users (username, password, realname, email) VALUES (:username, :password, :realname, :email)"
         );
         $res = $stmt->execute(['username' => $username, 'password' => $password, 'realname' => $realname, 'email' => $email]);
         return $res != false;
