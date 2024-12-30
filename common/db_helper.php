@@ -70,4 +70,22 @@ class db_helper
         }
         return $res;
     }
+
+    public function getRealName(string $login): string
+    {
+        $name = '';
+        try {
+            $this->conn->beginTransaction();
+            $stmt = $this->conn->prepare('SELECT realname FROM users WHERE username = :login');
+            $stmt->execute([':login' => $login]);
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($results as $row) {
+                $name = $row['realname'];
+            }
+            $this->conn->commit();
+        } catch (PDOException $e) {
+            $this->conn->rollBack();
+        }
+        return $name;
+    }
 }

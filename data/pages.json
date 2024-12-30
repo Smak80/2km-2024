@@ -24,5 +24,10 @@
     "url": "reg.php",
     "title": "Регистрация нового пользователя",
     "show": 0
+  },
+  {
+    "url": "auth.php?logout=1",
+    "title": "Выход",
+    "show": "for_auth"
   }
 ]

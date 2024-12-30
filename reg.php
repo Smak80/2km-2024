@@ -27,6 +27,9 @@ class reg extends a_content
                 $this->get_post_data('name'),
                 $this->get_post_data('email')
             );
+            if($this->reg){
+                header("Location: auth.php");
+            }
         } else if ($this->is_form_sent()){
             $this->reg = false;
         }
