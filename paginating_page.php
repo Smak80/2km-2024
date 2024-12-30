@@ -11,7 +11,6 @@ class paginating_page extends a_content
     private string $filename;
     public function __construct()
     {
-        $this->is_opened = true;
         parent::__construct();
         try {
             $this->filename = $this->upload_file();
