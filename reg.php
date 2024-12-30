@@ -1,8 +1,11 @@
 <?php
 require_once 'common/a_content.php';
 require_once 'common/page.php';
+require_once 'common/db_helper.php';
 use common\page;
 use common\a_content;
+use common\db_helper;
+
 class reg extends a_content
 {
     private ?bool $reg = null;
@@ -11,13 +14,21 @@ class reg extends a_content
         parent::__construct();
         $this->is_opened = true;
         if($this->is_correct()===true){
-            $f=fopen('data/users.db','w');
-            fwrite($f,$this->get_post_data('login')
-                .' '.password_hash($this->get_post_data('password'), PASSWORD_DEFAULT)
-                .' '.$this->get_post_data('email')
-                .' '.$this->get_post_data('name')
+//            $f=fopen('data/users.db','w');
+//            fwrite($f,$this->get_post_data('login')
+//                .' '.password_hash($this->get_post_data('password'), PASSWORD_DEFAULT)
+//                .' '.$this->get_post_data('email')
+//                .' '.$this->get_post_data('name')
+//            );
+//            fclose($f);
+            $this->reg = db_helper::getInstance()->registerUser(
+                $this->get_post_data('login'),
+                $this->get_post_data('password'),
+                $this->get_post_data('name'),
+                $this->get_post_data('email')
             );
-            fclose($f);
+        } else if ($this->is_form_sent()){
+            $this->reg = false;
         }
 
     }
@@ -54,7 +65,7 @@ class reg extends a_content
         ?>
         <div class="container border border-primary border-1 w-50 mb-3">
             <form method="post" action="<?php print $_SERVER['SCRIPT_NAME']?>">
-
+                <input type="hidden" name="form_sent" value="1">
                 <div class="row w-100 m-auto">
                     <div class="col-3 m-2">
                         <label for="login" class="form-control border-0">Введите логин:</label>

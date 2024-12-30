@@ -1,8 +1,7 @@
 <?php
 
 namespace common;
-
-use PgSql\Connection;
+use PDO;
 
 class db_helper
 {
@@ -13,10 +12,16 @@ class db_helper
     private static string $password = 'postgres';
 
     private static ?db_helper $helper = null;
-    private static Connection $conn;
+    private PDO $conn;
 
     private function __construct(){
-        self::$conn = pg_connect("host=" . self::$host . " port=" . self::$port . " user=" . self::$user . " password=" . self::$password . " dbname=" . self::$dbname);
+        $this->conn = new PDO('pgsql:host='
+            .self::$host
+            .';port='.self::$port
+            .';dbname='.self::$dbname,
+            username: self::$user,
+            password: self::$password
+        );
     }
 
     public static function getInstance(){
@@ -24,5 +29,17 @@ class db_helper
             self::$helper = new db_helper();
         }
         return self::$helper;
+    }
+
+    public function registerUser(string $username, // логин
+                                 string $password, // пароль, введенный пользователем
+                                 string $realname, // имя пользователя
+                                 string $email // электронная почта пользователя
+    ): bool {
+        $stmt = $this->conn->prepare(
+            "INSERT INTO users (username, password, realname, email) VALUES ($1, $2, $3, $4)"
+        );
+        $res = $stmt->execute(['username' => $username, 'password' => $password, 'realname' => $realname, 'email' => $email]);
+        return $res != false;
     }
 }
