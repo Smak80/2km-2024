@@ -1,16 +1,17 @@
 <?php
-require_once './common/a_content.php';
-require_once './common/page.php';
+require_once 'common/a_content.php';
+require_once 'common/page.php';
 use common\a_content;
 use common\page;
 
-class paginating_page extends \common\a_content
+class paginating_page extends a_content
 {
     private int $max_file_size = 102400;
     private string $error_msg;
     private string $filename;
     public function __construct()
     {
+        $this->is_opened = true;
         parent::__construct();
         try {
             $this->filename = $this->upload_file();
@@ -43,7 +44,7 @@ class paginating_page extends \common\a_content
                 <?php
                     try {
                         if ($this->is_form_sent()) {
-                            $rows = $this->read_file($this->filename, 3, 20);
+                            $rows = @$this->read_file($this->filename, 3, 20);
                             foreach ($rows as $row) {
                                 print_r($row);
                             }
