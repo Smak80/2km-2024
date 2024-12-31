@@ -51,7 +51,8 @@ class page
         $login = $this->content->get_session_data('login');
         if ($login!=='') {
             $nameuser = db_helper::getInstance()->getRealName($login);
-}        ?>
+        }
+        ?>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <span class="navbar-brand mb-0 h1"><?php if ($this->content->is_authorized()) print "Приветствуем, ".$nameuser."! Сайт "; ?> Магистры-2024 (2 курс)</span>

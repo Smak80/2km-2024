@@ -64,6 +64,7 @@ class db_helper
             foreach ($results as $row) {
                 $res = password_verify($password, $row['password']);
             }
+            $stmt->closeCursor();
             $this->conn->commit();
         } catch (PDOException $e) {
             $this->conn->rollBack();
@@ -82,6 +83,7 @@ class db_helper
             foreach ($results as $row) {
                 $name = $row['realname'];
             }
+            $stmt->closeCursor();
             $this->conn->commit();
         } catch (PDOException $e) {
             $this->conn->rollBack();
